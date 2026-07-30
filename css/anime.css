@@ -1,1 +1,190 @@
+/* ==========================================
+   ANIME DETAILS PAGE
+========================================== */
 
+/* Main Container */
+
+.anime-details{
+
+    width:90%;
+    max-width:1400px;
+
+    margin:60px auto;
+
+    display:grid;
+
+    grid-template-columns:350px 1fr;
+
+    gap:50px;
+
+    align-items:start;
+
+}
+
+/* Poster */
+
+.anime-poster img{
+
+    width:100%;
+
+    border-radius:20px;
+
+    box-shadow:0 20px 40px rgba(0,0,0,.4);
+
+}
+
+/* Information */
+
+.anime-info{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.anime-info h1{
+
+    font-size:3rem;
+
+}
+
+.anime-info p{
+
+    color:var(--text-secondary);
+
+    line-height:1.8;
+
+}
+
+/* Stats */
+
+.anime-stats{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:20px;
+
+}
+
+.stat{
+
+    background:var(--surface);
+
+    padding:18px;
+
+    border-radius:12px;
+
+    min-width:140px;
+
+    text-align:center;
+
+}
+
+.stat h3{
+
+    color:var(--primary);
+
+    margin-bottom:8px;
+
+}
+
+/* Genres */
+
+.genre-list{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+}
+
+.genre{
+
+    background:var(--primary);
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    font-size:14px;
+
+}
+
+/* Trailer */
+
+.trailer{
+
+    margin-top:50px;
+
+}
+
+.trailer iframe{
+
+    width:100%;
+
+    height:500px;
+
+    border:none;
+
+    border-radius:15px;
+
+}
+
+/* Characters */
+
+.characters-preview{
+
+    margin-top:60px;
+
+}
+
+.character-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+
+    gap:25px;
+
+}
+
+.character-card{
+
+    background:var(--surface);
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+}
+
+.character-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.character-card img{
+
+    height:220px;
+
+    object-fit:cover;
+
+}
+
+.character-card h3{
+
+    padding:15px;
+
+    text-align:center;
+
+}
