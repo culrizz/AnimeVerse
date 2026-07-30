@@ -1,1 +1,107 @@
+/* ==========================================
+   LOGIN & REGISTER
+========================================== */
 
+.auth-page{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:30px;
+
+}
+
+.auth-container{
+
+    width:100%;
+
+    max-width:450px;
+
+    background:var(--surface);
+
+    padding:40px;
+
+    border-radius:20px;
+
+}
+
+.auth-container h1{
+
+    text-align:center;
+
+    margin-bottom:15px;
+
+}
+
+.auth-container p{
+
+    text-align:center;
+
+    color:var(--text-secondary);
+
+    margin-bottom:30px;
+
+}
+
+.auth-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.auth-form input{
+
+    padding:15px;
+
+    border-radius:10px;
+
+    background:#1F2937;
+
+    color:white;
+
+    border:1px solid var(--border);
+
+}
+
+.auth-form button{
+
+    background:var(--primary);
+
+    color:white;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    transition:.3s;
+
+}
+
+.auth-form button:hover{
+
+    background:var(--primary-hover);
+
+}
+
+.auth-link{
+
+    margin-top:20px;
+
+    text-align:center;
+
+}
+
+.auth-link a{
+
+    color:var(--primary);
+
+}
