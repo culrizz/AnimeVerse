@@ -1,1 +1,117 @@
+/* ===================================
+   ANIMEVERSE - GLOBAL STYLES
+=================================== */
 
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* Reset */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* Variables */
+
+:root{
+
+    --primary:#8B5CF6;
+    --primary-hover:#7C3AED;
+
+    --background:#0B1120;
+    --surface:#111827;
+    --surface-light:#1F2937;
+
+    --text:#F9FAFB;
+    --text-secondary:#9CA3AF;
+
+    --border:#374151;
+
+    --success:#10B981;
+    --danger:#EF4444;
+}
+
+/* Base */
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:var(--background);
+
+    color:var(--text);
+
+    line-height:1.6;
+
+}
+
+/* Links */
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+/* Lists */
+
+ul{
+
+    list-style:none;
+
+}
+
+/* Images */
+
+img{
+
+    display:block;
+
+    width:100%;
+
+}
+
+/* Buttons */
+
+button{
+
+    cursor:pointer;
+
+    font-family:inherit;
+
+}
+
+/* Inputs */
+
+input,
+textarea,
+select,
+button{
+
+    outline:none;
+
+    border:none;
+
+    font-family:inherit;
+
+}
+
+/* Container */
+
+.container{
+
+    width:90%;
+
+    max-width:1400px;
+
+    margin:auto;
+
+}
