@@ -1,1 +1,77 @@
+/* ==========================================
+   ANIMATIONS
+========================================== */
 
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+    }
+
+    to{
+
+        opacity:1;
+
+    }
+
+}
+
+@keyframes slideUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(40px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes zoomIn{
+
+    from{
+
+        transform:scale(.8);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+.fade-in{
+
+    animation:fadeIn .8s ease;
+
+}
+
+.slide-up{
+
+    animation:slideUp .8s ease;
+
+}
+
+.zoom-in{
+
+    animation:zoomIn .6s ease;
+
+}
