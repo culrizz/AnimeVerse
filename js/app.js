@@ -1,81 +1,77 @@
-// ========================================
-// AnimeVerse
-// Jikan API
-// ========================================
+/* ==========================================
+   AnimeVerse
+   Main Application
+========================================== */
 
-const BASE_URL = "https://api.jikan.moe/v4";
-
-// Wait until the page loads
 document.addEventListener("DOMContentLoaded", () => {
 
-    loadTrendingAnime();
+    console.log("🚀 AnimeVerse Loaded");
+
+    initializeApp();
 
 });
 
-// ========================================
-// Trending Anime
-// ========================================
+function initializeApp(){
 
-async function loadTrendingAnime(){
+    initializeTheme();
 
-    const container = document.getElementById("trendingAnime");
+    initializeNavbar();
 
-    if(!container) return;
+    initializeSearch();
 
-    container.innerHTML = "<h2>Loading anime...</h2>";
+    initializeSlider();
 
-    try{
+    initializeProfile();
 
-        const response = await fetch(`${BASE_URL}/top/anime`);
-
-        const result = await response.json();
-
-        displayAnime(result.data.slice(0,12));
-
-    }
-
-    catch(error){
-
-        container.innerHTML = "<h2>Failed to load anime.</h2>";
-
-        console.error(error);
-
-    }
+    detectCurrentPage();
 
 }
 
-// ========================================
-// Display Anime
-// ========================================
+function detectCurrentPage(){
 
-function displayAnime(animeList){
+    const page = window.location.pathname.split("/").pop();
 
-    const container = document.getElementById("trendingAnime");
+    switch(page){
 
-    container.innerHTML = "";
+        case "index.html":
+        case "":
+            console.log("🏠 Home Page");
+            loadHomePage();
+            break;
 
-    animeList.forEach(anime=>{
+        case "anime.html":
+            console.log("🎬 Anime Page");
+            loadAnimePage();
+            break;
 
-        container.innerHTML += `
+        case "characters.html":
+            console.log("👥 Characters Page");
+            loadCharactersPage();
+            break;
 
-        <div class="anime-card">
+        case "news.html":
+            console.log("📰 News Page");
+            break;
 
-            <img src="${anime.images.jpg.large_image_url}">
+        case "wallpapers.html":
+            console.log("🖼 Wallpapers Page");
+            break;
 
-            <div class="card-content">
+        case "profile.html":
+            console.log("👤 Profile Page");
+            break;
 
-                <h3>${anime.title}</h3>
+        case "login.html":
+            console.log("🔐 Login Page");
+            break;
 
-                <p>⭐ ${anime.score ?? "N/A"}</p>
+        case "register.html":
+            console.log("📝 Register Page");
+            break;
 
-                <p>${anime.episodes ?? "?"} Episodes</p>
+        default:
+            console.log("Unknown Page");
 
-            </div>
-
-        </div>
-
-        `;
-
-    });
+    }
 
 }
