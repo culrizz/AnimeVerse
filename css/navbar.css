@@ -1,1 +1,209 @@
+/* ==========================================
+   ANIMEVERSE NAVBAR
+========================================== */
 
+header{
+    position:sticky;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    background:rgba(11,17,32,.92);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--border);
+}
+
+.navbar{
+
+    width:90%;
+    max-width:1400px;
+    height:80px;
+
+    margin:auto;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+}
+
+/* ==========================
+   LOGO
+========================== */
+
+.logo{
+
+    font-size:2rem;
+    font-weight:700;
+
+    color:var(--primary);
+
+    letter-spacing:1px;
+
+    transition:.3s;
+
+}
+
+.logo:hover{
+
+    color:#A78BFA;
+
+    transform:scale(1.05);
+
+}
+
+/* ==========================
+   NAV LINKS
+========================== */
+
+.nav-links{
+
+    display:flex;
+    align-items:center;
+    gap:35px;
+
+}
+
+.nav-links li{
+
+    position:relative;
+
+}
+
+.nav-links a{
+
+    font-size:16px;
+
+    color:var(--text);
+
+    font-weight:500;
+
+    transition:.3s;
+
+}
+
+/* Hover */
+
+.nav-links a:hover{
+
+    color:var(--primary);
+
+}
+
+/* Underline */
+
+.nav-links a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:0;
+
+    height:2px;
+
+    background:var(--primary);
+
+    transition:.35s;
+
+}
+
+.nav-links a:hover::after{
+
+    width:100%;
+
+}
+
+/* Active Link */
+
+.nav-links a.active{
+
+    color:var(--primary);
+
+}
+
+/* ==========================
+   RIGHT SIDE
+========================== */
+
+.nav-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+/* Login */
+
+.login-btn{
+
+    padding:10px 20px;
+
+    border:2px solid var(--primary);
+
+    border-radius:10px;
+
+    transition:.3s;
+
+}
+
+.login-btn:hover{
+
+    background:var(--primary);
+
+}
+
+/* Register */
+
+.register-btn{
+
+    padding:10px 22px;
+
+    background:var(--primary);
+
+    border-radius:10px;
+
+    transition:.3s;
+
+}
+
+.register-btn:hover{
+
+    background:var(--primary-hover);
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================
+   MOBILE MENU
+========================== */
+
+.menu-btn{
+
+    display:none;
+
+    font-size:30px;
+
+    cursor:pointer;
+
+}
+
+/* ==========================
+   SHADOW WHEN SCROLLING
+========================== */
+
+header.scrolled{
+
+    box-shadow:
+
+    0 15px 40px rgba(0,0,0,.35);
+
+}
