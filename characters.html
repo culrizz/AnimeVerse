@@ -1,1 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeVerse | Characters</title>
 
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+
+        <nav class="navbar">
+
+            <div class="logo">
+                <a href="index.html">AnimeVerse</a>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="characters.html" class="active">Characters</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="wallpapers.html">Wallpapers</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button id="theme-toggle">🌙</button>
+            </div>
+
+        </nav>
+
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+
+        <h1>Anime Characters</h1>
+
+        <p>
+            Discover your favourite anime characters from thousands of anime.
+        </p>
+
+    </section>
+
+    <!-- ===== SEARCH ===== -->
+    <section class="search-section">
+
+        <div class="container">
+
+            <input
+                type="text"
+                id="search-character"
+                placeholder="Search characters..."
+            >
+
+            <button id="search-btn">
+                Search
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- ===== FILTERS ===== -->
+    <section class="filters">
+
+        <div class="container">
+
+            <button class="filter-btn">Popular</button>
+            <button class="filter-btn">Heroes</button>
+            <button class="filter-btn">Villains</button>
+            <button class="filter-btn">Newest</button>
+
+        </div>
+
+    </section>
+
+    <!-- ===== CHARACTERS GRID ===== -->
+    <main>
+
+        <section class="characters">
+
+            <div class="container">
+
+                <div id="character-grid" class="character-grid">
+
+                    <!-- Character cards from JavaScript -->
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ===== PAGINATION ===== -->
+    <section class="pagination">
+
+        <button id="previous-page">Previous</button>
+
+        <span id="page-number">1</span>
+
+        <button id="next-page">Next</button>
+
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+
+        <div class="container">
+
+            <h3>AnimeVerse</h3>
+
+            <p>
+                Your gateway to the anime universe.
+            </p>
+
+            <p>
+                © 2026 AnimeVerse. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
