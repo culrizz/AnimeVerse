@@ -1,1 +1,47 @@
+/* ==========================================
+   ANIMEVERSE VARIABLES
+========================================== */
 
+:root{
+
+    /* Primary */
+
+    --primary:#8B5CF6;
+    --primary-hover:#7C3AED;
+
+    /* Backgrounds */
+
+    --background:#0B1120;
+    --surface:#111827;
+    --surface-light:#1F2937;
+
+    /* Text */
+
+    --text:#F9FAFB;
+    --text-secondary:#9CA3AF;
+
+    /* Status */
+
+    --success:#22C55E;
+    --warning:#F59E0B;
+    --danger:#EF4444;
+
+    /* Borders */
+
+    --border:#374151;
+
+    /* Radius */
+
+    --radius-small:8px;
+    --radius:12px;
+    --radius-large:20px;
+
+    /* Shadows */
+
+    --shadow:
+        0 15px 35px rgba(0,0,0,.35);
+
+    /* Transition */
+
+    --transition:.3s ease;
+}
