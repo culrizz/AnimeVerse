@@ -3,26 +3,325 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore | AnimeVerse</title>
-
+    <meta name="description" content="AnimeVerse - Explore and discover anime">
+    <title>Explore Anime - AnimeVerse</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/navbar.css">
-<link rel="stylesheet" href="css/home.css">
-<link rel="stylesheet" href="css/animations.css">
-<link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/explore.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <img src="assets/images/logos/logo.png" alt="AnimeVerse" class="navbar-logo" onerror="this.style.display='none'">
+                <span class="brand-text">AnimeVerse</span>
+            </a>
+            
+            <ul class="navbar-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explore.html" class="active">Explore</a></li>
+                <li><a href="characters.html">Characters</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="wallpapers.html">Wallpapers</a></li>
+            </ul>
+            
+            <div class="navbar-search">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search anime..." id="navSearch">
+            </div>
+            
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <div class="user-menu" id="userMenu">
+                <img src="assets/images/avatars/default.png" alt="User" class="user-avatar" id="userAvatar" onclick="window.location.href='login.html'">
+            </div>
+            
+            <button class="navbar-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
 
-<header></header>
+    <!-- Explore Header -->
+    <section class="explore-header">
+        <div class="container">
+            <h1 class="explore-title">
+                <i class="fas fa-compass"></i> Explore Anime
+            </h1>
+            <p class="explore-subtitle">Discover your next favorite anime from thousands of titles</p>
+            
+            <!-- Search Bar -->
+            <div class="explore-search">
+                <i class="fas fa-search search-icon"></i>
+                <input 
+                    type="text" 
+                    class="explore-search-input" 
+                    id="exploreSearch" 
+                    placeholder="Search by title, genre, or keyword..."
+                    autocomplete="off"
+                >
+                <button class="search-clear" id="searchClear" style="display: none;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </section>
 
-<main>
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filters-wrapper glass">
+                <!-- Active Filters -->
+                <div class="active-filters" id="activeFilters" style="display: none;">
+                    <!-- Active filter tags will appear here -->
+                </div>
+                
+                <!-- Filter Controls -->
+                <div class="filter-controls">
+                    <!-- Sort By -->
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            <i class="fas fa-sort-amount-down"></i> Sort By
+                        </label>
+                        <select class="filter-select" id="sortBy">
+                            <option value="">Default</option>
+                            <option value="title">Title A-Z</option>
+                            <option value="score">Score (High to Low)</option>
+                            <option value="popularity">Popularity</option>
+                            <option value="rank">Rank</option>
+                            <option value="episodes">Episodes</option>
+                            <option value="start_date">Release Date</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Type -->
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            <i class="fas fa-tv"></i> Type
+                        </label>
+                        <select class="filter-select" id="typeFilter">
+                            <option value="">All Types</option>
+                            <option value="tv">TV</option>
+                            <option value="movie">Movie</option>
+                            <option value="ova">OVA</option>
+                            <option value="special">Special</option>
+                            <option value="ona">ONA</option>
+                            <option value="music">Music</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Status -->
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            <i class="fas fa-circle"></i> Status
+                        </label>
+                        <select class="filter-select" id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="airing">Currently Airing</option>
+                            <option value="complete">Completed</option>
+                            <option value="upcoming">Upcoming</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Rating -->
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            <i class="fas fa-star"></i> Rating
+                        </label>
+                        <select class="filter-select" id="ratingFilter">
+                            <option value="">All Ratings</option>
+                            <option value="g">G - All Ages</option>
+                            <option value="pg">PG - Children</option>
+                            <option value="pg13">PG-13 - Teens</option>
+                            <option value="r17">R - 17+</option>
+                            <option value="r">R+ - Mild Nudity</option>
+                            <option value="rx">Rx - Hentai</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Genre -->
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            <i class="fas fa-tags"></i> Genre
+                        </label>
+                        <select class="filter-select" id="genreFilter">
+                            <option value="">All Genres</option>
+                            <!-- Genres will be populated by JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <!-- Year -->
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            <i class="fas fa-calendar"></i> Year
+                        </label>
+                        <select class="filter-select" id="yearFilter">
+                            <option value="">All Years</option>
+                            <!-- Years will be populated by JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <!-- Season -->
+                    <div class="filter-group">
+                        <label class="filter-label">
+                            <i class="fas fa-cloud-sun"></i> Season
+                        </label>
+                        <select class="filter-select" id="seasonFilter">
+                            <option value="">All Seasons</option>
+                            <option value="spring">Spring</option>
+                            <option value="summer">Summer</option>
+                            <option value="fall">Fall</option>
+                            <option value="winter">Winter</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Filter Actions -->
+                <div class="filter-actions">
+                    <button class="btn btn-secondary" id="resetFilters">
+                        <i class="fas fa-undo"></i> Reset Filters
+                    </button>
+                    <span class="results-count" id="resultsCount">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-</main>
+    <!-- Results Section -->
+    <section class="results-section">
+        <div class="container">
+            <!-- Results Grid -->
+            <div class="anime-grid grid grid-5" id="resultsGrid">
+                <!-- Loading skeletons -->
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+            </div>
+            
+            <!-- Loading Spinner -->
+            <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+                <div class="spinner"></div>
+                <p>Loading more anime...</p>
+            </div>
+            
+            <!-- Load More Button -->
+            <div class="load-more-wrapper" id="loadMoreWrapper">
+                <button class="btn btn-primary btn-lg" id="loadMoreBtn">
+                    <i class="fas fa-plus"></i> Load More
+                </button>
+            </div>
+            
+            <!-- No Results -->
+            <div class="no-results" id="noResults" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No anime found</h3>
+                <p>Try adjusting your search or filters</p>
+                <button class="btn btn-primary" id="clearSearchBtn">
+                    <i class="fas fa-times"></i> Clear Search
+                </button>
+            </div>
+            
+            <!-- Error State -->
+            <div class="error-state" id="errorState" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Something went wrong</h3>
+                <p>Failed to load anime. Please try again.</p>
+                <button class="btn btn-primary" onclick="location.reload()">
+                    <i class="fas fa-redo"></i> Retry
+                </button>
+            </div>
+        </div>
+    </section>
 
-<footer></footer>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
-<script src="js/app.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="text-gradient">AnimeVerse</h3>
+                    <p>Your ultimate destination for anime discovery and tracking.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Reddit"><i class="fab fa-reddit"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <a href="explore.html">Browse Anime</a>
+                    <a href="explore.html?sort=trending">Trending</a>
+                    <a href="explore.html?sort=rating">Top Rated</a>
+                    <a href="explore.html?status=airing">Currently Airing</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Community</h4>
+                    <a href="characters.html">Characters</a>
+                    <a href="news.html">News</a>
+                    <a href="wallpapers.html">Wallpapers</a>
+                    <a href="#">Discord</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Account</h4>
+                    <a href="login.html">Login</a>
+                    <a href="register.html">Register</a>
+                    <a href="profile.html">Profile</a>
+                    <a href="#">Settings</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AnimeVerse. Powered by Jikan API. Made with ❤️ for anime fans.</p>
+            </div>
+        </div>
+    </footer>
 
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/explore.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/theme.js"></script>
 </body>
 </html>
