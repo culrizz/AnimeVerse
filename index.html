@@ -1,264 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>AnimeVerse</title>
-
-<link rel="stylesheet" href="css/variables.css">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/navbar.css">
-<link rel="stylesheet" href="css/home.css">
-<link rel="stylesheet" href="css/animations.css">
-<link rel="stylesheet" href="css/responsive.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AnimeVerse - Discover, explore, and track your favorite anime">
+    <title>AnimeVerse - Discover Anime</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-
 <body>
-
-<header>
-
-<nav class="navbar">
-
-<a href="index.html" class="logo">
-
-AnimeVerse
-
-</a>
-
-<ul class="nav-links">
-
-<li><a href="index.html">Home</a></li>
-
-<li><a href="explore.html">Explore</a></li>
-
-<li><a href="characters.html">Characters</a></li>
-
-<li><a href="news.html">News</a></li>
-
-<li><a href="wallpapers.html">Wallpapers</a></li>
-
-</ul>
-
-<div class="nav-right">
-
-<a href="login.html" class="login-btn">
-
-Login
-
-</a>
-
-<a href="register.html"
-class="register-btn">
-
-Register
-
-</a>
-
-</div>
-
-</nav>
-
-</header>
-
-<main>
-
-<!-- HERO -->
-
-<section class="hero">
-
-<div class="hero-content">
-
-<h1>
-
-Discover Your Next
-
-<span>Favorite Anime</span>
-
-</h1>
-
-<p>
-
-Search thousands of anime, discover amazing characters,
-read the latest news, and download beautiful wallpapers.
-
-</p>
-
-<div class="hero-buttons">
-
-<a href="explore.html"
-class="btn btn-primary">
-
-Explore Anime
-
-</a>
-
-<a href="#trending"
-class="btn btn-outline">
-
-Trending
-
-</a>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- TRENDING -->
-
-<section
-id="trending"
-class="section">
-
-<div class="container">
-
-<h2 class="section-title">
-
-🔥 Trending Anime
-
-</h2>
-
-<div
-id="trendingAnime"
-class="anime-grid">
-
-</div>
-
-</div>
-
-</section>
-
-<!-- TOP RATED -->
-
-<section class="section">
-
-<div class="container">
-
-<h2 class="section-title">
-
-⭐ Top Rated
-
-</h2>
-
-<div
-id="topAnime"
-class="anime-grid">
-
-</div>
-
-</div>
-
-</section>
-
-<!-- AIRING -->
-
-<section class="section">
-
-<div class="container">
-
-<h2 class="section-title">
-
-📺 Currently Airing
-
-</h2>
-
-<div
-id="airingAnime"
-class="anime-grid">
-
-</div>
-
-</div>
-
-</section>
-
-<!-- CHARACTERS -->
-
-<section class="section">
-
-<div class="container">
-
-<h2 class="section-title">
-
-🎭 Popular Characters
-
-</h2>
-
-<div
-id="characterGrid"
-class="character-grid">
-
-</div>
-
-</div>
-
-</section>
-
-<!-- NEWS -->
-
-<section class="section">
-
-<div class="container">
-
-<h2 class="section-title">
-
-📰 Latest News
-
-</h2>
-
-<div
-id="newsGrid"
-class="news-grid">
-
-</div>
-
-</div>
-
-</section>
-
-<!-- WALLPAPERS -->
-
-<section class="section">
-
-<div class="container">
-
-<h2 class="section-title">
-
-🖼 Wallpapers
-
-</h2>
-
-<div
-id="wallpaperGrid"
-class="wallpaper-grid">
-
-</div>
-
-</div>
-
-</section>
-
-</main>
-
-<footer>
-
-<p>
-
-© 2026 AnimeVerse
-
-</p>
-
-</footer>
-
-<script src="js/app.js"></script>
-
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <img src="assets/images/logos/logo.png" alt="AnimeVerse" class="navbar-logo" onerror="this.style.display='none'">
+                <span class="brand-text">AnimeVerse</span>
+            </a>
+            
+            <ul class="navbar-links" id="navLinks">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="characters.html">Characters</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="wallpapers.html">Wallpapers</a></li>
+            </ul>
+            
+            <div class="navbar-search">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search anime..." id="navSearch">
+            </div>
+            
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <div class="user-menu" id="userMenu">
+                <img src="assets/images/avatars/default.png" alt="User" class="user-avatar" id="userAvatar" onclick="window.location.href='login.html'">
+            </div>
+            
+            <button class="navbar-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+            <div class="hero-slider" id="heroSlider"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="container">
+                <h1 class="hero-title">
+                    Welcome to <span class="text-gradient">AnimeVerse</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Discover, explore, and track your favorite anime all in one place
+                </p>
+                <div class="hero-buttons">
+                    <a href="explore.html" class="btn btn-primary">
+                        <i class="fas fa-compass"></i> Explore Anime
+                    </a>
+                    <a href="#trending" class="btn btn-secondary">
+                        <i class="fas fa-fire"></i> View Trending
+                    </a>
+                </div>
+                
+                <!-- Hero Stats -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="statAnime">1000+</span>
+                        <span class="stat-label">Anime Titles</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100K+</span>
+                        <span class="stat-label">Characters</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Daily</span>
+                        <span class="stat-label">Updates</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Trending Section -->
+    <section class="section trending" id="trending">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-fire"></i> Trending Now
+                </h2>
+                <a href="explore.html?sort=trending" class="view-all">
+                    View All <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="anime-grid grid grid-5" id="trendingGrid">
+                <!-- Loading skeletons -->
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Rated Section -->
+    <section class="section top-rated">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-star"></i> Top Rated
+                </h2>
+                <a href="explore.html?sort=rating" class="view-all">
+                    View All <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="anime-grid grid grid-5" id="topRatedGrid">
+                <!-- Loading skeletons -->
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Currently Airing Section -->
+    <section class="section airing">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-play-circle"></i> Currently Airing
+                </h2>
+                <a href="explore.html?status=airing" class="view-all">
+                    View All <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="anime-grid grid grid-5" id="airingGrid">
+                <!-- Loading skeletons -->
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Characters Section -->
+    <section class="section characters">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-users"></i> Popular Characters
+                </h2>
+                <a href="characters.html" class="view-all">
+                    View All <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="characters-grid grid grid-6" id="charactersGrid">
+                <!-- Loading skeletons -->
+                <div class="skeleton" style="height: 250px;"></div>
+                <div class="skeleton" style="height: 250px;"></div>
+                <div class="skeleton" style="height: 250px;"></div>
+                <div class="skeleton" style="height: 250px;"></div>
+                <div class="skeleton" style="height: 250px;"></div>
+                <div class="skeleton" style="height: 250px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News Section -->
+    <section class="section news">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-newspaper"></i> Latest News
+                </h2>
+                <a href="news.html" class="view-all">
+                    View All <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="news-grid grid grid-3" id="newsGrid">
+                <!-- Loading skeletons -->
+                <div class="skeleton" style="height: 300px;"></div>
+                <div class="skeleton" style="height: 300px;"></div>
+                <div class="skeleton" style="height: 300px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta">
+        <div class="container">
+            <div class="cta-content glass">
+                <h2>Ready to Start Your Anime Journey?</h2>
+                <p>Join AnimeVerse today and track all your favorite anime in one place</p>
+                <a href="register.html" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="text-gradient">AnimeVerse</h3>
+                    <p>Your ultimate destination for anime discovery and tracking.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Reddit"><i class="fab fa-reddit"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <a href="explore.html">Browse Anime</a>
+                    <a href="explore.html?sort=trending">Trending</a>
+                    <a href="explore.html?sort=rating">Top Rated</a>
+                    <a href="explore.html?status=airing">Currently Airing</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Community</h4>
+                    <a href="characters.html">Characters</a>
+                    <a href="news.html">News</a>
+                    <a href="wallpapers.html">Wallpapers</a>
+                    <a href="#">Discord</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Account</h4>
+                    <a href="login.html">Login</a>
+                    <a href="register.html">Register</a>
+                    <a href="profile.html">Profile</a>
+                    <a href="#">Settings</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AnimeVerse. Powered by Jikan API. Made with ❤️ for anime fans.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/anime.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/theme.js"></script>
 </body>
-
 </html>
