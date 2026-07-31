@@ -3,97 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnimeVerse | Profile</title>
-
+    <meta name="description" content="AnimeVerse - Your Profile">
+    <title>My Profile - AnimeVerse</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/navbar.css">
-<link rel="stylesheet" href="css/profile.css">
-<link rel="stylesheet" href="css/animations.css">
-<link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
 <body>
-
-<header>
-
-    <nav class="navbar">
-
-        <div class="logo">
-            <a href="index.html">AnimeVerse</a>
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <img src="assets/images/logos/logo.png" alt="AnimeVerse" class="navbar-logo" onerror="this.style.display='none'">
+                <span class="brand-text">AnimeVerse</span>
+            </a>
+            
+            <ul class="navbar-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="characters.html">Characters</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="wallpapers.html">Wallpapers</a></li>
+            </ul>
+            
+            <div class="navbar-search">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search anime..." id="navSearch">
+            </div>
+            
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <div class="user-menu" id="userMenu">
+                <img src="assets/images/avatars/default.png" alt="User" class="user-avatar" id="userAvatar">
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+                    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+            
+            <button class="navbar-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="explore.html">Explore</a></li>
-            <li><a href="characters.html">Characters</a></li>
-            <li><a href="news.html">News</a></li>
-            <li><a href="wallpapers.html">Wallpapers</a></li>
-            <li><a href="profile.html" class="active">Profile</a></li>
-        </ul>
-
-        <button id="theme-toggle">🌙</button>
-
     </nav>
 
-</header>
+    <!-- Profile Header -->
+    <section class="profile-header">
+        <div class="profile-header-bg" id="profileHeaderBg"></div>
+        <div class="container">
+            <div class="profile-header-content">
+                <!-- Avatar Section -->
+                <div class="profile-avatar-section">
+                    <div class="profile-avatar-wrapper">
+                        <img src="assets/images/avatars/default.png" alt="Avatar" class="profile-avatar" id="profileAvatar">
+                        <button class="avatar-edit-btn" id="avatarEditBtn" title="Change avatar">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="profile-name-section">
+                        <h1 class="profile-username" id="profileUsername">Username</h1>
+                        <p class="profile-email" id="profileEmail">email@example.com</p>
+                        <p class="profile-joined" id="profileJoined">Joined January 2024</p>
+                    </div>
+                </div>
+                
+                <!-- Stats -->
+                <div class="profile-stats">
+                    <div class="profile-stat">
+                        <span class="stat-number" id="statWatchlist">0</span>
+                        <span class="stat-label">Watchlist</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="stat-number" id="statFavorites">0</span>
+                        <span class="stat-label">Favorites</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="stat-number" id="statCompleted">0</span>
+                        <span class="stat-label">Completed</span>
+                    </div>
+                    <div class="profile-stat">
+                        <span class="stat-number" id="statReviews">0</span>
+                        <span class="stat-label">Reviews</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<main>
+    <!-- Profile Tabs -->
+    <section class="profile-tabs-section">
+        <div class="container">
+            <div class="profile-tabs">
+                <button class="profile-tab active" data-tab="watchlist">
+                    <i class="fas fa-bookmark"></i> Watchlist
+                    <span class="tab-count" id="watchlistCount">0</span>
+                </button>
+                <button class="profile-tab" data-tab="favorites">
+                    <i class="fas fa-heart"></i> Favorites
+                    <span class="tab-count" id="favoritesCount">0</span>
+                </button>
+                <button class="profile-tab" data-tab="completed">
+                    <i class="fas fa-check-circle"></i> Completed
+                    <span class="tab-count" id="completedCount">0</span>
+                </button>
+                <button class="profile-tab" data-tab="reviews">
+                    <i class="fas fa-star"></i> Reviews
+                    <span class="tab-count" id="reviewsCount">0</span>
+                </button>
+                <button class="profile-tab" data-tab="settings">
+                    <i class="fas fa-cog"></i> Settings
+                </button>
+            </div>
+        </div>
+    </section>
 
-<section class="profile">
+    <!-- Tab Content -->
+    <section class="profile-content">
+        <div class="container">
+            
+            <!-- Watchlist Tab -->
+            <div class="tab-content active" id="watchlistTab">
+                <div class="tab-header">
+                    <h2><i class="fas fa-bookmark"></i> My Watchlist</h2>
+                    <div class="tab-actions">
+                        <select class="filter-select" id="watchlistSort">
+                            <option value="recent">Recently Added</option>
+                            <option value="title">Title A-Z</option>
+                            <option value="score">Score</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="anime-grid grid grid-5" id="watchlistGrid">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="empty-state" id="watchlistEmpty">
+                    <i class="fas fa-bookmark"></i>
+                    <h3>Your watchlist is empty</h3>
+                    <p>Start adding anime you want to watch later!</p>
+                    <a href="explore.html" class="btn btn-primary">
+                        <i class="fas fa-compass"></i> Explore Anime
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Favorites Tab -->
+            <div class="tab-content" id="favoritesTab">
+                <div class="tab-header">
+                    <h2><i class="fas fa-heart"></i> My Favorites</h2>
+                    <div class="tab-actions">
+                        <select class="filter-select" id="favoritesSort">
+                            <option value="recent">Recently Added</option>
+                            <option value="title">Title A-Z</option>
+                            <option value="score">Score</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="anime-grid grid grid-5" id="favoritesGrid">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="empty-state" id="favoritesEmpty">
+                    <i class="fas fa-heart"></i>
+                    <h3>No favorites yet</h3>
+                    <p>Heart your favorite anime to see them here!</p>
+                    <a href="explore.html" class="btn btn-primary">
+                        <i class="fas fa-compass"></i> Explore Anime
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Completed Tab -->
+            <div class="tab-content" id="completedTab">
+                <div class="tab-header">
+                    <h2><i class="fas fa-check-circle"></i> Completed</h2>
+                </div>
+                <div class="anime-grid grid grid-5" id="completedGrid">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="empty-state" id="completedEmpty">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>No completed anime</h3>
+                    <p>Mark anime as completed to track your progress!</p>
+                </div>
+            </div>
+            
+            <!-- Reviews Tab -->
+            <div class="tab-content" id="reviewsTab">
+                <div class="tab-header">
+                    <h2><i class="fas fa-star"></i> My Reviews</h2>
+                </div>
+                <div class="reviews-list" id="reviewsList">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="empty-state" id="reviewsEmpty">
+                    <i class="fas fa-star"></i>
+                    <h3>No reviews yet</h3>
+                    <p>Share your thoughts on anime you've watched!</p>
+                    <p class="coming-soon">Coming soon with Supabase integration</p>
+                </div>
+            </div>
+            
+            <!-- Settings Tab -->
+            <div class="tab-content" id="settingsTab">
+                <div class="settings-container">
+                    <!-- Profile Settings -->
+                    <div class="settings-section glass">
+                        <h3><i class="fas fa-user-edit"></i> Profile Settings</h3>
+                        
+                        <div class="settings-form">
+                            <div class="form-group">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-input" id="settingsUsername" placeholder="Enter username">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" id="settingsEmail" placeholder="Enter email" disabled>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Bio</label>
+                                <textarea class="form-input form-textarea" id="settingsBio" placeholder="Tell us about yourself..." rows="4"></textarea>
+                            </div>
+                            
+                            <button class="btn btn-primary" id="saveProfileBtn">
+                                <i class="fas fa-save"></i> Save Changes
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Avatar Selection -->
+                    <div class="settings-section glass">
+                        <h3><i class="fas fa-image"></i> Choose Avatar</h3>
+                        <div class="avatar-grid" id="avatarGrid">
+                            <!-- Avatars will be generated -->
+                        </div>
+                    </div>
+                    
+                    <!-- Theme Settings -->
+                    <div class="settings-section glass">
+                        <h3><i class="fas fa-palette"></i> Appearance</h3>
+                        <div class="theme-options">
+                            <button class="theme-option active" data-theme="dark">
+                                <i class="fas fa-moon"></i>
+                                <span>Dark</span>
+                            </button>
+                            <button class="theme-option" data-theme="light">
+                                <i class="fas fa-sun"></i>
+                                <span>Light</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Danger Zone -->
+                    <div class="settings-section glass danger-zone">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Danger Zone</h3>
+                        <p>Once you delete your account, there is no going back. Please be certain.</p>
+                        <button class="btn btn-danger" id="deleteAccountBtn">
+                            <i class="fas fa-trash"></i> Delete Account
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
 
-<div class="container">
+    <!-- Delete Account Modal -->
+    <div class="modal-overlay" id="deleteModal" style="display: none;">
+        <div class="modal-content glass modal-sm">
+            <button class="modal-close" id="deleteModalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body text-center">
+                <i class="fas fa-exclamation-triangle warning-icon"></i>
+                <h2>Delete Account</h2>
+                <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+                    <button class="btn btn-danger" id="confirmDeleteBtn">
+                        <i class="fas fa-trash"></i> Delete My Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="profile-card">
+    <!-- Toast Notification -->
+    <div class="toast" id="toast" style="display: none;"></div>
 
-<img id="profile-image"
-src="assets/images/default-avatar.png"
-alt="Profile">
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="text-gradient">AnimeVerse</h3>
+                    <p>Your ultimate destination for anime discovery and tracking.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Reddit"><i class="fab fa-reddit"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <a href="explore.html">Browse Anime</a>
+                    <a href="explore.html?sort=trending">Trending</a>
+                    <a href="explore.html?sort=rating">Top Rated</a>
+                    <a href="explore.html?status=airing">Currently Airing</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Community</h4>
+                    <a href="characters.html">Characters</a>
+                    <a href="news.html">News</a>
+                    <a href="wallpapers.html">Wallpapers</a>
+                    <a href="#">Discord</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Account</h4>
+                    <a href="login.html">Login</a>
+                    <a href="register.html">Register</a>
+                    <a href="profile.html">Profile</a>
+                    <a href="#">Settings</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AnimeVerse. Powered by Jikan API. Made with ❤️ for anime fans.</p>
+            </div>
+        </div>
+    </footer>
 
-<h1 id="username">
-Guest User
-</h1>
-
-<p id="bio">
-Welcome to AnimeVerse.
-</p>
-
-<div class="profile-stats">
-
-<div>
-<h3 id="favorite-count">0</h3>
-<p>Favorites</p>
-</div>
-
-<div>
-<h3 id="comment-count">0</h3>
-<p>Comments</p>
-</div>
-
-<div>
-<h3 id="likes-count">0</h3>
-<p>Likes</p>
-</div>
-
-</div>
-
-<button id="edit-profile">
-Edit Profile
-</button>
-
-</div>
-
-</div>
-
-</section>
-
-</main>
-
-<footer>
-
-<p>© 2026 AnimeVerse</p>
-
-</footer>
-
-<script src="js/app.js"></script>
-
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/theme.js"></script>
 </body>
 </html>
