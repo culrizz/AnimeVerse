@@ -46,7 +46,8 @@ class CharactersPage {
             const searchInput = document.getElementById('characterSearch');
             if (searchInput) {
                 searchInput.value = this.searchQuery;
-                document.getElementById('searchClear').style.display = 'block';
+                const searchClear = document.getElementById('searchClear');
+                if (searchClear) searchClear.style.display = 'block';
             }
         }
         
@@ -63,7 +64,9 @@ class CharactersPage {
     
     async loadAnimeContext() {
         try {
-            const data = await utils.fetchData(`${API_BASE}/anime/${this.animeId}`);
+            const response = await fetch(`${API_BASE}/anime/${this.animeId}`);
+            const data = await response.json();
+            
             if (data && data.data) {
                 this.animeContext = data.data;
                 this.renderAnimeContext();
@@ -81,16 +84,17 @@ class CharactersPage {
         
         contextSection.style.display = 'block';
         contextCard.innerHTML = `
-            <img src="${this.animeContext.images.jpg.small_image_url}" 
+            <img src="${this.animeContext.images?.jpg?.small_image_url || this.animeContext.images?.jpg?.image_url || 'assets/images/placeholder.jpg'}" 
                  alt="${this.animeContext.title}"
                  onerror="this.src='assets/images/placeholder.jpg'">
             <div class="context-card-info">
                 <h3>Characters from ${this.animeContext.title}</h3>
-                <p>${this.animeContext.type} • ${this.animeContext.episodes || '?'} episodes</p>
+                <p>${this.animeContext.type || 'Anime'} • ${this.animeContext.episodes || '?'} episodes</p>
             </div>
             <i class="fas fa-chevron-right context-card-arrow"></i>
         `;
         
+        contextCard.style.cursor = 'pointer';
         contextCard.addEventListener('click', () => {
             window.location.href = `anime.html?id=${this.animeId}`;
         });
@@ -101,32 +105,37 @@ class CharactersPage {
         params.append('page', this.currentPage);
         params.append('limit', 24);
         
-        if (this.searchQuery) {
-            // Search by name
-            params.append('q', this.searchQuery);
-        }
-        
-        // Different endpoints based on filter
         let url = `${API_BASE}/characters`;
         
-        switch (this.activeFilter) {
-            case 'top':
-                url = `${API_BASE}/top/characters`;
-                break;
-            case 'favorites':
-                params.append('order_by', 'favorites');
-                params.append('sort', 'desc');
-                break;
-            case 'popular':
-                params.append('order_by', 'favorites');  // Closest to popularity
-                params.append('sort', 'desc');
-                break;
+        // If search query exists
+        if (this.searchQuery) {
+            params.append('q', this.searchQuery);
+            params.append('order_by', 'name');
+        } else {
+            // Different endpoints based on filter
+            switch (this.activeFilter) {
+                case 'top':
+                    url = `${API_BASE}/top/characters`;
+                    break;
+                case 'favorites':
+                    params.append('order_by', 'favorites');
+                    params.append('sort', 'desc');
+                    break;
+                case 'popular':
+                    params.append('order_by', 'favorites');
+                    params.append('sort', 'desc');
+                    break;
+                default:
+                    // Default: order by name
+                    params.append('order_by', 'name');
+                    params.append('sort', 'asc');
+                    break;
+            }
         }
         
         // If coming from anime page, load that anime's characters
         if (this.animeId && !this.searchQuery) {
             url = `${API_BASE}/anime/${this.animeId}/characters`;
-            params.delete('q');
         }
         
         return `${url}?${params.toString()}`;
@@ -148,9 +157,15 @@ class CharactersPage {
         
         try {
             const url = this.buildAPIURL();
-            const data = await utils.fetchData(url);
+            console.log('Fetching characters from:', url); // Debug log
+            
+            const response = await fetch(url);
+            const data = await response.json();
+            
+            console.log('API Response:', data); // Debug log
             
             if (!data || !data.data) {
+                console.error('No data received');
                 this.showError();
                 return;
             }
@@ -158,48 +173,63 @@ class CharactersPage {
             // Handle different response structures
             let characters = [];
             if (this.animeId && !this.searchQuery) {
-                // Anime characters endpoint returns { character: ..., role: ... }
+                // Anime characters endpoint returns array of { character: ..., role: ... }
                 characters = data.data.map(item => ({
                     ...item.character,
                     role: item.role,
                     voice_actors: item.voice_actors || []
                 }));
+                console.log('Anime characters:', characters); // Debug log
             } else {
                 characters = data.data;
+                console.log('Regular characters:', characters); // Debug log
+            }
+            
+            // Check if we got characters
+            if (characters.length === 0) {
+                console.warn('No characters found in response');
+                if (reset) {
+                    document.getElementById('noResults').style.display = 'block';
+                    document.getElementById('loadMoreWrapper').style.display = 'none';
+                    document.getElementById('resultsCount').textContent = '0 characters found';
+                }
+                this.isLoading = false;
+                this.showLoading(false);
+                return;
             }
             
             // Update pagination
-            this.totalResults = data.pagination?.items?.total || characters.length;
-            this.totalPages = data.pagination?.last_visible_page || 1;
-            this.hasMore = data.pagination?.has_next_page || false;
+            if (data.pagination) {
+                this.totalResults = data.pagination.items?.total || characters.length;
+                this.totalPages = data.pagination.last_visible_page || 1;
+                this.hasMore = data.pagination.has_next_page || false;
+            } else {
+                this.totalResults = characters.length;
+                this.totalPages = 1;
+                this.hasMore = false;
+            }
             
             // Update results count
             document.getElementById('resultsCount').textContent = 
                 `${this.totalResults.toLocaleString()} characters found`;
             
-            // Render
+            // Render characters
+            const cardsHTML = characters.map(char => this.createCharacterCard(char)).join('');
+            
             if (reset) {
-                document.getElementById('charactersGrid').innerHTML = 
-                    characters.map(char => this.createCharacterCard(char)).join('');
+                document.getElementById('charactersGrid').innerHTML = cardsHTML;
             } else {
-                document.getElementById('charactersGrid').insertAdjacentHTML(
-                    'beforeend',
-                    characters.map(char => this.createCharacterCard(char)).join('')
-                );
+                document.getElementById('charactersGrid').insertAdjacentHTML('beforeend', cardsHTML);
             }
             
             // Update load more button
             this.updateLoadMoreButton();
             
             // Show/hide no results
-            if (characters.length === 0 && reset) {
-                document.getElementById('noResults').style.display = 'block';
-                document.getElementById('loadMoreWrapper').style.display = 'none';
-            } else {
+            if (reset) {
                 document.getElementById('noResults').style.display = 'none';
+                document.getElementById('errorState').style.display = 'none';
             }
-            
-            document.getElementById('errorState').style.display = 'none';
             
             // Re-apply view mode
             this.applyViewMode();
@@ -216,23 +246,39 @@ class CharactersPage {
     }
     
     createCharacterCard(character) {
-        const isFavorite = this.favoriteCharacters.includes(character.mal_id.toString());
+        if (!character) {
+            console.warn('Invalid character data');
+            return '';
+        }
+        
+        const isFavorite = this.favoriteCharacters.includes(character.mal_id?.toString());
         const name = character.name || 'Unknown';
-        const imageUrl = character.images?.jpg?.image_url || 'assets/images/placeholder.jpg';
+        
+        // Handle different image URL formats
+        let imageUrl = 'assets/images/placeholder.jpg';
+        if (character.images?.jpg?.image_url) {
+            imageUrl = character.images.jpg.image_url;
+        } else if (character.images?.webp?.image_url) {
+            imageUrl = character.images.webp.image_url;
+        }
         
         // For list view - voice actors
         const voiceActors = character.voice_actors?.slice(0, 2) || [];
-        const voiceActorsHTML = voiceActors.map(va => `
-            <div class="voice-actor-mini">
-                <img src="${va.person.images?.jpg?.image_url || 'assets/images/placeholder.jpg'}" 
-                     alt="${va.person.name}"
-                     onerror="this.style.display='none'">
-                <span>${va.person.name}</span>
-            </div>
-        `).join('');
+        const voiceActorsHTML = voiceActors.map(va => {
+            const vaImage = va.person?.images?.jpg?.image_url || 'assets/images/placeholder.jpg';
+            const vaName = va.person?.name || 'Unknown VA';
+            return `
+                <div class="voice-actor-mini">
+                    <img src="${vaImage}" 
+                         alt="${vaName}"
+                         onerror="this.style.display='none'">
+                    <span>${vaName}</span>
+                </div>
+            `;
+        }).join('');
         
         return `
-            <div class="character-card" data-id="${character.mal_id}" onclick="charactersPage.openCharacterDetail(${character.mal_id})">
+            <div class="character-card" data-id="${character.mal_id}">
                 <div class="character-card-image">
                     <img src="${imageUrl}" 
                          alt="${name}" 
@@ -241,7 +287,6 @@ class CharactersPage {
                 </div>
                 <button class="character-card-favorite ${isFavorite ? 'active' : ''}" 
                         data-id="${character.mal_id}"
-                        onclick="event.stopPropagation(); charactersPage.toggleFavorite(${character.mal_id}, this)"
                         title="${isFavorite ? 'Remove from favorites' : 'Add to favorites'}">
                     <i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i>
                 </button>
@@ -255,6 +300,53 @@ class CharactersPage {
         `;
     }
     
+    applyViewMode() {
+        const grid = document.getElementById('charactersGrid');
+        if (!grid) return;
+        
+        if (this.currentView === 'list') {
+            grid.classList.add('list-view');
+        } else {
+            grid.classList.remove('list-view');
+        }
+    }
+    
+    // Add click handlers after rendering
+    setupCardClickHandlers() {
+        const grid = document.getElementById('charactersGrid');
+        if (!grid) return;
+        
+        // Character cards
+        grid.querySelectorAll('.character-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Don't trigger if clicking the favorite button
+                if (e.target.closest('.character-card-favorite')) return;
+                
+                const id = card.dataset.id;
+                if (id) {
+                    this.openCharacterDetail(parseInt(id));
+                }
+            });
+        });
+        
+        // Favorite buttons
+        grid.querySelectorAll('.character-card-favorite').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const id = btn.dataset.id;
+                if (id) {
+                    this.toggleFavorite(parseInt(id), btn);
+                }
+            });
+        });
+    }
+    
+    // Override loadCharacters to add click handlers after rendering
+    async loadCharactersWithHandlers(reset = false) {
+        await this.loadCharacters(reset);
+        this.setupCardClickHandlers();
+    }
+    
     async openCharacterDetail(characterId) {
         const modal = document.getElementById('characterModal');
         const modalBody = document.getElementById('modalBody');
@@ -263,12 +355,19 @@ class CharactersPage {
         
         // Show loading in modal
         modal.style.display = 'flex';
-        modalBody.innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p>Loading character details...</p></div>';
+        modalBody.innerHTML = `
+            <div style="text-align: center; padding: 40px;">
+                <div class="spinner" style="margin: 0 auto 20px;"></div>
+                <p>Loading character details...</p>
+            </div>
+        `;
         
         try {
-            const data = await utils.fetchData(`${API_BASE}/characters/${characterId}/full`);
+            const response = await fetch(`${API_BASE}/characters/${characterId}/full`);
+            const data = await response.json();
+            
             if (!data || !data.data) {
-                modalBody.innerHTML = '<p class="error-state">Failed to load character details.</p>';
+                modalBody.innerHTML = '<p style="text-align: center; padding: 40px;">Failed to load character details.</p>';
                 return;
             }
             
@@ -277,24 +376,25 @@ class CharactersPage {
             
         } catch (error) {
             console.error('Error loading character details:', error);
-            modalBody.innerHTML = '<p class="error-state">Failed to load character details.</p>';
+            modalBody.innerHTML = '<p style="text-align: center; padding: 40px;">Failed to load character details.</p>';
         }
     }
     
     renderCharacterDetail(char, container) {
         const voiceActors = char.voice_actors || [];
         const animeAppearances = char.anime || [];
-        const mangaAppearances = char.manga || [];
+        
+        const imageUrl = char.images?.jpg?.image_url || 'assets/images/placeholder.jpg';
         
         container.innerHTML = `
             <div class="character-detail">
                 <div class="character-detail-image">
-                    <img src="${char.images?.jpg?.image_url || 'assets/images/placeholder.jpg'}" 
+                    <img src="${imageUrl}" 
                          alt="${char.name}"
                          onerror="this.src='assets/images/placeholder.jpg'">
                 </div>
                 <div class="character-detail-info">
-                    <h2>${char.name}</h2>
+                    <h2>${char.name || 'Unknown'}</h2>
                     ${char.name_kanji ? `<p class="character-detail-name-jp">${char.name_kanji}</p>` : ''}
                     
                     ${char.about ? `
@@ -323,12 +423,12 @@ class CharactersPage {
                             <h3><i class="fas fa-microphone"></i> Voice Actors</h3>
                             ${voiceActors.slice(0, 5).map(va => `
                                 <div class="voice-actor-card">
-                                    <img src="${va.person.images?.jpg?.image_url || 'assets/images/placeholder.jpg'}" 
-                                         alt="${va.person.name}"
+                                    <img src="${va.person?.images?.jpg?.image_url || 'assets/images/placeholder.jpg'}" 
+                                         alt="${va.person?.name || 'Unknown'}"
                                          onerror="this.src='assets/images/placeholder.jpg'">
                                     <div class="voice-actor-card-info">
-                                        <h4>${va.person.name}</h4>
-                                        <p>${va.language}</p>
+                                        <h4>${va.person?.name || 'Unknown'}</h4>
+                                        <p>${va.language || 'Unknown'}</p>
                                     </div>
                                 </div>
                             `).join('')}
@@ -338,14 +438,17 @@ class CharactersPage {
                     ${animeAppearances.length > 0 ? `
                         <div class="anime-appearances">
                             <h3><i class="fas fa-tv"></i> Anime Appearances</h3>
-                            ${animeAppearances.slice(0, 10).map(anime => `
-                                <div class="appearance-card" onclick="window.location.href='anime.html?id=${anime.anime.mal_id}'">
-                                    <img src="${anime.anime.images?.jpg?.small_image_url || 'assets/images/placeholder.jpg'}" 
-                                         alt="${anime.anime.title}"
-                                         onerror="this.style.display='none'">
-                                    <span>${anime.anime.title}</span>
-                                </div>
-                            `).join('')}
+                            ${animeAppearances.slice(0, 10).map(item => {
+                                const anime = item.anime;
+                                return `
+                                    <div class="appearance-card" onclick="window.location.href='anime.html?id=${anime.mal_id}'" style="cursor: pointer;">
+                                        <img src="${anime.images?.jpg?.small_image_url || 'assets/images/placeholder.jpg'}" 
+                                             alt="${anime.title}"
+                                             onerror="this.style.display='none'">
+                                        <span>${anime.title}</span>
+                                    </div>
+                                `;
+                            }).join('')}
                         </div>
                     ` : ''}
                 </div>
@@ -359,23 +462,31 @@ class CharactersPage {
         
         if (index > -1) {
             this.favoriteCharacters.splice(index, 1);
-            button.classList.remove('active');
-            button.querySelector('i').className = 'far fa-heart';
-            button.title = 'Add to favorites';
+            if (button) {
+                button.classList.remove('active');
+                const icon = button.querySelector('i');
+                if (icon) icon.className = 'far fa-heart';
+                button.title = 'Add to favorites';
+            }
         } else {
             this.favoriteCharacters.push(id);
-            button.classList.add('active');
-            button.querySelector('i').className = 'fas fa-heart';
-            button.title = 'Remove from favorites';
+            if (button) {
+                button.classList.add('active');
+                const icon = button.querySelector('i');
+                if (icon) icon.className = 'fas fa-heart';
+                button.title = 'Remove from favorites';
+            }
         }
         
         localStorage.setItem('animeverse-favorite-characters', JSON.stringify(this.favoriteCharacters));
         
         // Animate heart
-        button.style.transform = 'scale(1.3)';
-        setTimeout(() => {
-            button.style.transform = 'scale(1)';
-        }, 200);
+        if (button) {
+            button.style.transform = 'scale(1.3)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 200);
+        }
     }
     
     setupEventListeners() {
@@ -393,10 +504,11 @@ class CharactersPage {
                 if (this.searchQuery && this.animeId) {
                     this.animeId = null;
                     this.animeContext = null;
-                    document.getElementById('animeContext').style.display = 'none';
+                    const contextSection = document.getElementById('animeContext');
+                    if (contextSection) contextSection.style.display = 'none';
                 }
                 this.updateURL();
-                this.loadCharacters(true);
+                this.loadCharactersWithHandlers(true);
             }, 500);
             
             searchInput.addEventListener('input', debouncedSearch);
@@ -406,19 +518,19 @@ class CharactersPage {
                     e.preventDefault();
                     this.searchQuery = searchInput.value.trim();
                     this.updateURL();
-                    this.loadCharacters(true);
+                    this.loadCharactersWithHandlers(true);
                 }
             });
         }
         
         if (searchClear) {
             searchClear.addEventListener('click', () => {
-                searchInput.value = '';
+                if (searchInput) searchInput.value = '';
                 this.searchQuery = '';
                 searchClear.style.display = 'none';
                 this.updateURL();
-                this.loadCharacters(true);
-                searchInput.focus();
+                this.loadCharactersWithHandlers(true);
+                if (searchInput) searchInput.focus();
             });
         }
         
@@ -429,7 +541,13 @@ class CharactersPage {
                 chip.classList.add('active');
                 this.activeFilter = chip.dataset.filter;
                 this.updateURL();
-                this.loadCharacters(true);
+                this.loadCharactersWithHandlers(true);
+                
+                // Scroll to results
+                const resultsSection = document.querySelector('.characters-results');
+                if (resultsSection) {
+                    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             });
         });
         
@@ -444,34 +562,47 @@ class CharactersPage {
         });
         
         // Load more
-        document.getElementById('loadMoreBtn').addEventListener('click', () => {
-            this.loadMore();
-        });
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', () => {
+                this.loadMore();
+            });
+        }
         
         // Clear search from no results
-        document.getElementById('clearSearchBtn').addEventListener('click', () => {
-            searchInput.value = '';
-            this.searchQuery = '';
-            searchClear.style.display = 'none';
-            this.updateURL();
-            this.loadCharacters(true);
-        });
+        const clearSearchBtn = document.getElementById('clearSearchBtn');
+        if (clearSearchBtn) {
+            clearSearchBtn.addEventListener('click', () => {
+                if (searchInput) searchInput.value = '';
+                this.searchQuery = '';
+                if (searchClear) searchClear.style.display = 'none';
+                this.updateURL();
+                this.loadCharactersWithHandlers(true);
+            });
+        }
         
         // Modal close
-        document.getElementById('modalClose').addEventListener('click', () => {
-            document.getElementById('characterModal').style.display = 'none';
-        });
+        const modalClose = document.getElementById('modalClose');
+        const characterModal = document.getElementById('characterModal');
         
-        document.getElementById('characterModal').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) {
-                document.getElementById('characterModal').style.display = 'none';
-            }
-        });
+        if (modalClose) {
+            modalClose.addEventListener('click', () => {
+                if (characterModal) characterModal.style.display = 'none';
+            });
+        }
+        
+        if (characterModal) {
+            characterModal.addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) {
+                    characterModal.style.display = 'none';
+                }
+            });
+        }
         
         // Close modal with Escape key
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                document.getElementById('characterModal').style.display = 'none';
+            if (e.key === 'Escape' && characterModal) {
+                characterModal.style.display = 'none';
             }
         });
         
@@ -486,19 +617,10 @@ class CharactersPage {
         }
     }
     
-    applyViewMode() {
-        const grid = document.getElementById('charactersGrid');
-        if (this.currentView === 'list') {
-            grid.classList.add('list-view');
-        } else {
-            grid.classList.remove('list-view');
-        }
-    }
-    
     async loadMore() {
         if (!this.hasMore || this.isLoading) return;
         this.currentPage++;
-        await this.loadCharacters(false);
+        await this.loadCharactersWithHandlers(false);
     }
     
     setupInfiniteScroll() {
@@ -524,6 +646,7 @@ class CharactersPage {
     
     setupBackToTop() {
         const btn = document.getElementById('backToTop');
+        if (!btn) return;
         
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 500) {
@@ -554,10 +677,10 @@ class CharactersPage {
         const loadMoreBtn = document.getElementById('loadMoreBtn');
         
         if (show && this.currentPage > 1) {
-            spinner.style.display = 'block';
+            if (spinner) spinner.style.display = 'block';
             if (loadMoreBtn) loadMoreBtn.disabled = true;
         } else {
-            spinner.style.display = 'none';
+            if (spinner) spinner.style.display = 'none';
             if (loadMoreBtn) loadMoreBtn.disabled = false;
         }
     }
@@ -566,13 +689,15 @@ class CharactersPage {
         const wrapper = document.getElementById('loadMoreWrapper');
         const btn = document.getElementById('loadMoreBtn');
         
+        if (!wrapper) return;
+        
         if (this.hasMore) {
             wrapper.style.display = 'block';
             if (btn) {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-plus"></i> Load More';
             }
-        } else if (this.totalResults > 0) {
+        } else if (this.totalResults > 24) {
             wrapper.style.display = 'block';
             if (btn) {
                 btn.disabled = true;
@@ -584,9 +709,13 @@ class CharactersPage {
     }
     
     showError() {
-        document.getElementById('errorState').style.display = 'block';
-        document.getElementById('noResults').style.display = 'none';
-        document.getElementById('loadMoreWrapper').style.display = 'none';
+        const errorState = document.getElementById('errorState');
+        const noResults = document.getElementById('noResults');
+        const loadMoreWrapper = document.getElementById('loadMoreWrapper');
+        
+        if (errorState) errorState.style.display = 'block';
+        if (noResults) noResults.style.display = 'none';
+        if (loadMoreWrapper) loadMoreWrapper.style.display = 'none';
     }
 }
 
