@@ -3,73 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnimeVerse | Anime Details</title>
-
+    <meta name="description" content="AnimeVerse - Anime Details">
+    <title>Loading... - AnimeVerse</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/navbar.css">
-<link rel="stylesheet" href="css/anime.css">
-<link rel="stylesheet" href="css/animations.css">
-<link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/anime.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-
     <!-- Navigation -->
-    <header>
-        <nav>
-            <h1>AnimeVerse</h1>
-
-            <ul>
+    <nav class="navbar scrolled" id="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <img src="assets/images/logos/logo.png" alt="AnimeVerse" class="navbar-logo" onerror="this.style.display='none'">
+                <span class="brand-text">AnimeVerse</span>
+            </a>
+            
+            <ul class="navbar-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="explore.html">Explore</a></li>
+                <li><a href="characters.html">Characters</a></li>
                 <li><a href="news.html">News</a></li>
                 <li><a href="wallpapers.html">Wallpapers</a></li>
-                <li><a href="profile.html">Profile</a></li>
             </ul>
-        </nav>
-    </header>
-
-    <!-- Anime Details -->
-    <main>
-
-        <section class="anime-details">
-
-            <div class="anime-poster">
-                <img id="anime-image" src="" alt="Anime Poster">
+            
+            <div class="navbar-search">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search anime..." id="navSearch">
             </div>
-
-            <div class="anime-info">
-
-                <h2 id="anime-title">Loading...</h2>
-
-                <p id="anime-score">⭐ Rating:</p>
-
-                <p id="anime-episodes">Episodes:</p>
-
-                <p id="anime-status">Status:</p>
-
-                <p id="anime-year">Year:</p>
-
-                <p id="anime-genres">Genres:</p>
-
-                <h3>Synopsis</h3>
-
-                <p id="anime-synopsis">
-                    Loading synopsis...
-                </p>
-
+            
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <div class="user-menu" id="userMenu">
+                <img src="assets/images/avatars/default.png" alt="User" class="user-avatar" id="userAvatar" onclick="window.location.href='login.html'">
             </div>
+            
+            <button class="navbar-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
 
-        </section>
+    <!-- Anime Hero Banner -->
+    <section class="anime-hero" id="animeHero">
+        <div class="anime-hero-backdrop" id="animeBackdrop"></div>
+        <div class="anime-hero-overlay"></div>
+        
+        <div class="container">
+            <div class="anime-hero-content">
+                <!-- Poster -->
+                <div class="anime-poster-wrapper">
+                    <img src="" alt="Anime Poster" class="anime-poster" id="animePoster" onerror="this.src='assets/images/placeholder.jpg'">
+                    <div class="anime-poster-actions">
+                        <button class="btn btn-primary btn-block" id="addToWatchlist">
+                            <i class="fas fa-bookmark"></i> Add to Watchlist
+                        </button>
+                        <button class="btn btn-secondary btn-block" id="addToFavorites">
+                            <i class="fas fa-heart"></i> Add to Favorites
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Info -->
+                <div class="anime-info">
+                    <h1 class="anime-title" id="animeTitle">Loading...</h1>
+                    <h2 class="anime-title-jp" id="animeTitleJp"></h2>
+                    
+                    <!-- Quick Stats -->
+                    <div class="anime-quick-stats">
+                        <div class="quick-stat">
+                            <i class="fas fa-star"></i>
+                            <span id="animeScore">-</span>
+                            <small>Score</small>
+                        </div>
+                        <div class="quick-stat">
+                            <i class="fas fa-trophy"></i>
+                            <span id="animeRank">-</span>
+                            <small>Rank</small>
+                        </div>
+                        <div class="quick-stat">
+                            <i class="fas fa-users"></i>
+                            <span id="animePopularity">-</span>
+                            <small>Popularity</small>
+                        </div>
+                        <div class="quick-stat">
+                            <i class="fas fa-user-plus"></i>
+                            <span id="animeMembers">-</span>
+                            <small>Members</small>
+                        </div>
+                    </div>
+                    
+                    <!-- Meta Info Grid -->
+                    <div class="anime-meta-grid">
+                        <div class="meta-item">
+                            <span class="meta-label">Type</span>
+                            <span class="meta-value" id="animeType">-</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Episodes</span>
+                            <span class="meta-value" id="animeEpisodes">-</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Status</span>
+                            <span class="meta-value" id="animeStatus">-</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Aired</span>
+                            <span class="meta-value" id="animeAired">-</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Season</span>
+                            <span class="meta-value" id="animeSeason">-</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Duration</span>
+                            <span class="meta-value" id="animeDuration">-</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Rating</span>
+                            <span class="meta-value" id="animeRating">-</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Source</span>
+                            <span class="meta-value" id="animeSource">-</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Genres -->
+                    <div class="anime-genres" id="animeGenres"></div>
+                    
+                    <!-- Studios -->
+                    <div class="anime-studios" id="animeStudios">
+                        <span class="meta-label">Studios:</span>
+                        <span class="meta-value">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    </main>
+    <!-- Synopsis Section -->
+    <section class="section synopsis-section">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i> Synopsis
+            </h2>
+            <div class="synopsis-content glass">
+                <p id="animeSynopsis">Loading synopsis...</p>
+                
+                <!-- Background Info -->
+                <div class="anime-background" id="animeBackground" style="display: none;">
+                    <h3>Background</h3>
+                    <p id="animeBackgroundText"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trailer Section -->
+    <section class="section trailer-section" id="trailerSection" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-play-circle"></i> Trailer
+            </h2>
+            <div class="trailer-container glass" id="trailerContainer">
+                <!-- Trailer iframe will be inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Characters Section -->
+    <section class="section characters-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-users"></i> Characters & Voice Actors
+                </h2>
+                <a href="#" class="view-all" id="viewAllCharacters">
+                    View All <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="characters-list" id="charactersList">
+                <!-- Loading skeletons -->
+                <div class="skeleton" style="height: 120px;"></div>
+                <div class="skeleton" style="height: 120px;"></div>
+                <div class="skeleton" style="height: 120px;"></div>
+                <div class="skeleton" style="height: 120px;"></div>
+                <div class="skeleton" style="height: 120px;"></div>
+                <div class="skeleton" style="height: 120px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Theme Songs Section -->
+    <section class="section themes-section" id="themesSection" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-music"></i> Theme Songs
+            </h2>
+            <div class="themes-grid" id="themesGrid">
+                <!-- Openings -->
+                <div class="theme-category">
+                    <h3>Opening Themes</h3>
+                    <ul id="openingList"></ul>
+                </div>
+                <!-- Endings -->
+                <div class="theme-category">
+                    <h3>Ending Themes</h3>
+                    <ul id="endingList"></ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommendations Section -->
+    <section class="section recommendations-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-lightbulb"></i> You Might Also Like
+                </h2>
+            </div>
+            <div class="anime-grid grid grid-5" id="recommendationsGrid">
+                <!-- Loading skeletons -->
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+                <div class="skeleton" style="height: 350px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section Placeholder -->
+    <section class="section reviews-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-comments"></i> Reviews
+                </h2>
+            </div>
+            <div class="reviews-container glass" id="reviewsContainer">
+                <div class="reviews-loading">
+                    <p>Reviews will be available soon with Supabase integration!</p>
+                    <a href="register.html" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i> Sign Up to Leave a Review
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 AnimeVerse. All Rights Reserved.</p>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="text-gradient">AnimeVerse</h3>
+                    <p>Your ultimate destination for anime discovery and tracking.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Reddit"><i class="fab fa-reddit"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <a href="explore.html">Browse Anime</a>
+                    <a href="explore.html?sort=trending">Trending</a>
+                    <a href="explore.html?sort=rating">Top Rated</a>
+                    <a href="explore.html?status=airing">Currently Airing</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Community</h4>
+                    <a href="characters.html">Characters</a>
+                    <a href="news.html">News</a>
+                    <a href="wallpapers.html">Wallpapers</a>
+                    <a href="#">Discord</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Account</h4>
+                    <a href="login.html">Login</a>
+                    <a href="register.html">Register</a>
+                    <a href="profile.html">Profile</a>
+                    <a href="#">Settings</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AnimeVerse. Powered by Jikan API. Made with ❤️ for anime fans.</p>
+            </div>
+        </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="js/app.js"></script>
-
+    <script src="js/anime.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/theme.js"></script>
 </body>
 </html>
