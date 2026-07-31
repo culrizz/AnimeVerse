@@ -1,78 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>AnimeVerse | Register</title>
-
-  <link rel="stylesheet" href="css/variables.css">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/auth.css">
-<link rel="stylesheet" href="css/animations.css">
-<link rel="stylesheet" href="css/responsive.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AnimeVerse - Create your account">
+    <title>Register - AnimeVerse</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-
 <body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <img src="assets/images/logos/logo.png" alt="AnimeVerse" class="navbar-logo" onerror="this.style.display='none'">
+                <span class="brand-text">AnimeVerse</span>
+            </a>
+            
+            <ul class="navbar-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="characters.html">Characters</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="wallpapers.html">Wallpapers</a></li>
+            </ul>
+            
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <button class="navbar-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
 
-<div class="auth-container">
+    <!-- Auth Section -->
+    <section class="auth-section">
+        <div class="auth-container">
+            <!-- Decorative Background -->
+            <div class="auth-decoration">
+                <div class="auth-circle auth-circle-1"></div>
+                <div class="auth-circle auth-circle-2"></div>
+                <div class="auth-circle auth-circle-3"></div>
+            </div>
+            
+            <!-- Auth Card -->
+            <div class="auth-card glass animate-scale-in">
+                <!-- Logo -->
+                <div class="auth-logo">
+                    <a href="index.html" class="auth-brand">
+                        <span class="brand-text">AnimeVerse</span>
+                    </a>
+                    <p class="auth-tagline">Join the anime community!</p>
+                </div>
+                
+                <!-- Tabs -->
+                <div class="auth-tabs">
+                    <a href="login.html" class="auth-tab">Login</a>
+                    <a href="register.html" class="auth-tab active">Register</a>
+                </div>
+                
+                <!-- Register Form -->
+                <form class="auth-form" id="registerForm" novalidate>
+                    <!-- Error Message -->
+                    <div class="auth-error" id="registerError" style="display: none;">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="registerErrorMessage"></span>
+                    </div>
+                    
+                    <!-- Success Message -->
+                    <div class="auth-success" id="registerSuccess" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Account created! Redirecting...</span>
+                    </div>
+                    
+                    <!-- Username -->
+                    <div class="form-group">
+                        <label class="form-label" for="registerUsername">
+                            <i class="fas fa-user"></i> Username
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="registerUsername" 
+                                class="form-input" 
+                                placeholder="Choose a username"
+                                required
+                                minlength="3"
+                                maxlength="20"
+                                autocomplete="username"
+                            >
+                            <span class="input-icon">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                        <span class="form-hint">3-20 characters, letters, numbers, and underscores</span>
+                    </div>
+                    
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label class="form-label" for="registerEmail">
+                            <i class="fas fa-envelope"></i> Email
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="email" 
+                                id="registerEmail" 
+                                class="form-input" 
+                                placeholder="Enter your email"
+                                required
+                                autocomplete="email"
+                            >
+                            <span class="input-icon">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label class="form-label" for="registerPassword">
+                            <i class="fas fa-lock"></i> Password
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="password" 
+                                id="registerPassword" 
+                                class="form-input" 
+                                placeholder="Create a password"
+                                required
+                                minlength="6"
+                                autocomplete="new-password"
+                            >
+                            <button type="button" class="password-toggle" id="registerPasswordToggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <!-- Password Strength Meter -->
+                        <div class="password-strength" id="passwordStrength">
+                            <div class="strength-bar" id="strengthBar"></div>
+                            <span class="strength-text" id="strengthText"></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Confirm Password -->
+                    <div class="form-group">
+                        <label class="form-label" for="registerConfirmPassword">
+                            <i class="fas fa-lock"></i> Confirm Password
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="password" 
+                                id="registerConfirmPassword" 
+                                class="form-input" 
+                                placeholder="Confirm your password"
+                                required
+                                autocomplete="new-password"
+                            >
+                            <button type="button" class="password-toggle" id="confirmPasswordToggle">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <span class="form-error" id="confirmPasswordError" style="display: none;">
+                            Passwords do not match
+                        </span>
+                    </div>
+                    
+                    <!-- Terms Checkbox -->
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="agreeTerms" required>
+                            <span class="checkmark"></span>
+                            I agree to the 
+                            <a href="#">Terms of Service</a> 
+                            and 
+                            <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary btn-block btn-lg" id="registerSubmitBtn">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                    
+                    <!-- Divider -->
+                    <div class="auth-divider">
+                        <span>or sign up with</span>
+                    </div>
+                    
+                    <!-- Social Login (Placeholder) -->
+                    <div class="social-buttons">
+                        <button type="button" class="social-btn" disabled>
+                            <i class="fab fa-google"></i> Google
+                        </button>
+                        <button type="button" class="social-btn" disabled>
+                            <i class="fab fa-discord"></i> Discord
+                        </button>
+                        <button type="button" class="social-btn" disabled>
+                            <i class="fab fa-github"></i> GitHub
+                        </button>
+                    </div>
+                    
+                    <!-- Login Link -->
+                    <p class="auth-redirect">
+                        Already have an account? 
+                        <a href="login.html">Login here</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
 
-<h1>Create Account</h1>
-
-<p>Join AnimeVerse today</p>
-
-<form id="register-form">
-
-<input
-type="text"
-id="username"
-placeholder="Username"
-required>
-
-<input
-type="email"
-id="email"
-placeholder="Email"
-required>
-
-<input
-type="password"
-id="password"
-placeholder="Password"
-required>
-
-<input
-type="password"
-id="confirm-password"
-placeholder="Confirm Password"
-required>
-
-<button type="submit">
-
-Create Account
-
-</button>
-
-</form>
-
-<p>
-
-Already have an account?
-
-<a href="login.html">
-
-Login
-
-</a>
-
-</p>
-
-</div>
-
-<script src="js/app.js"></script>
-
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/theme.js"></script>
 </body>
 </html>
