@@ -1,47 +1,81 @@
-/* ==========================================
-   ANIMEVERSE VARIABLES
-========================================== */
-
-:root{
-
-    /* Primary */
-
-    --primary:#8B5CF6;
-    --primary-hover:#7C3AED;
-
-    /* Backgrounds */
-
-    --background:#0B1120;
-    --surface:#111827;
-    --surface-light:#1F2937;
-
-    /* Text */
-
-    --text:#F9FAFB;
-    --text-secondary:#9CA3AF;
-
-    /* Status */
-
-    --success:#22C55E;
-    --warning:#F59E0B;
-    --danger:#EF4444;
-
-    /* Borders */
-
-    --border:#374151;
-
-    /* Radius */
-
-    --radius-small:8px;
-    --radius:12px;
-    --radius-large:20px;
-
+:root {
+    /* Primary Colors */
+    --primary: #6c5ce7;
+    --primary-light: #a29bfe;
+    --primary-dark: #4834d4;
+    
+    /* Secondary Colors */
+    --secondary: #00cec9;
+    --secondary-light: #81ecec;
+    
+    /* Accent Colors */
+    --accent: #fd79a8;
+    --accent-light: #fab1a0;
+    
+    /* Background Colors */
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: #1a1a2e;
+    --bg-card-hover: #222240;
+    --bg-glass: rgba(26, 26, 46, 0.7);
+    
+    /* Text Colors */
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0c0;
+    --text-muted: #707080;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    --gradient-secondary: linear-gradient(135deg, #00cec9, #81ecec);
+    --gradient-accent: linear-gradient(135deg, #fd79a8, #fab1a0);
+    --gradient-dark: linear-gradient(135deg, #1a1a2e, #0a0a0f);
+    --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    
     /* Shadows */
-
-    --shadow:
-        0 15px 35px rgba(0,0,0,.35);
-
-    /* Transition */
-
-    --transition:.3s ease;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 20px rgba(108, 92, 231, 0.3);
+    
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --radius-full: 50%;
+    
+    /* Typography */
+    --font-primary: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-secondary: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    
+    /* Font Sizes */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    /* Z-index */
+    --z-navbar: 1000;
+    --z-modal: 1100;
+    --z-tooltip: 1200;
 }
