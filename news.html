@@ -3,167 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AnimeVerse | News</title>
-
+    <meta name="description" content="AnimeVerse - Latest anime news and updates">
+    <title>Anime News - AnimeVerse</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/navbar.css">
-<link rel="stylesheet" href="css/news.css">
-<link rel="stylesheet" href="css/animations.css">
-<link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/news.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-
-    <!-- ===== HEADER ===== -->
-
-    <header>
-
-        <nav class="navbar">
-
-            <div class="logo">
-                <a href="index.html">AnimeVerse</a>
-            </div>
-
-            <ul class="nav-links">
-
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <img src="assets/images/logos/logo.png" alt="AnimeVerse" class="navbar-logo" onerror="this.style.display='none'">
+                <span class="brand-text">AnimeVerse</span>
+            </a>
+            
+            <ul class="navbar-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="explore.html">Explore</a></li>
                 <li><a href="characters.html">Characters</a></li>
                 <li><a href="news.html" class="active">News</a></li>
                 <li><a href="wallpapers.html">Wallpapers</a></li>
-                <li><a href="profile.html">Profile</a></li>
-
             </ul>
-
-            <button id="theme-toggle">🌙</button>
-
-        </nav>
-
-    </header>
-
-    <!-- ===== HERO ===== -->
-
-    <section class="hero">
-
-        <h1>Anime News</h1>
-
-        <p>
-            Stay updated with the latest anime announcements, trailers, and releases.
-        </p>
-
-    </section>
-
-    <!-- ===== SEARCH ===== -->
-
-    <section class="search-section">
-
-        <div class="container">
-
-            <input
-                type="text"
-                id="news-search"
-                placeholder="Search anime news..."
-            >
-
-            <button id="search-news-btn">
-                Search
+            
+            <div class="navbar-search">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search anime..." id="navSearch">
+            </div>
+            
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
             </button>
-
-        </div>
-
-    </section>
-
-    <!-- ===== CATEGORIES ===== -->
-
-    <section class="categories">
-
-        <div class="container">
-
-            <button class="category-btn">All</button>
-            <button class="category-btn">Announcements</button>
-            <button class="category-btn">Trailers</button>
-            <button class="category-btn">Releases</button>
-            <button class="category-btn">Events</button>
-
-        </div>
-
-    </section>
-
-    <!-- ===== FEATURED ARTICLE ===== -->
-
-    <section class="featured-news">
-
-        <div class="container">
-
-            <div id="featured-news-card">
-
-                <!-- Featured article will appear here -->
-
+            
+            <div class="user-menu" id="userMenu">
+                <img src="assets/images/avatars/default.png" alt="User" class="user-avatar" id="userAvatar" onclick="window.location.href='login.html'">
             </div>
-
+            
+            <button class="navbar-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
+    </nav>
 
+    <!-- News Header -->
+    <section class="news-header">
+        <div class="container">
+            <h1 class="news-title">
+                <i class="fas fa-newspaper"></i> Anime News
+            </h1>
+            <p class="news-subtitle">Stay updated with the latest anime releases, announcements, and updates</p>
+        </div>
     </section>
 
-    <!-- ===== NEWS GRID ===== -->
+    <!-- Featured Article -->
+    <section class="featured-section" id="featuredSection">
+        <div class="container">
+            <div class="featured-card glass" id="featuredCard">
+                <!-- Loading skeleton -->
+                <div class="skeleton" style="height: 400px; border-radius: var(--radius-lg);"></div>
+            </div>
+        </div>
+    </section>
 
-    <main>
+    <!-- Category Tabs -->
+    <section class="news-categories">
+        <div class="container">
+            <div class="categories-scroll">
+                <button class="category-chip active" data-category="all">
+                    <i class="fas fa-globe"></i> All News
+                </button>
+                <button class="category-chip" data-category="new-releases">
+                    <i class="fas fa-star"></i> New Releases
+                </button>
+                <button class="category-chip" data-category="upcoming">
+                    <i class="fas fa-clock"></i> Upcoming
+                </button>
+                <button class="category-chip" data-category="trending">
+                    <i class="fas fa-fire"></i> Trending
+                </button>
+                <button class="category-chip" data-category="movies">
+                    <i class="fas fa-film"></i> Movies
+                </button>
+                <button class="category-chip" data-category="seasonal">
+                    <i class="fas fa-calendar"></i> This Season
+                </button>
+            </div>
+        </div>
+    </section>
 
-        <section class="news-grid-section">
-
-            <div class="container">
-
-                <div id="news-grid" class="news-grid">
-
-                    <!-- News cards added with JavaScript -->
-
+    <!-- News Grid -->
+    <section class="news-content">
+        <div class="container">
+            <div class="news-layout">
+                <!-- Main News Grid -->
+                <div class="news-main">
+                    <div class="news-grid" id="newsGrid">
+                        <!-- Loading skeletons -->
+                        <div class="skeleton" style="height: 350px;"></div>
+                        <div class="skeleton" style="height: 350px;"></div>
+                        <div class="skeleton" style="height: 350px;"></div>
+                        <div class="skeleton" style="height: 350px;"></div>
+                        <div class="skeleton" style="height: 350px;"></div>
+                        <div class="skeleton" style="height: 350px;"></div>
+                    </div>
+                    
+                    <!-- Load More -->
+                    <div class="load-more-wrapper" id="loadMoreWrapper">
+                        <button class="btn btn-primary btn-lg" id="loadMoreBtn">
+                            <i class="fas fa-plus"></i> Load More News
+                        </button>
+                    </div>
                 </div>
-
+                
+                <!-- Sidebar -->
+                <aside class="news-sidebar">
+                    <!-- Quick Stats -->
+                    <div class="sidebar-card glass">
+                        <h3><i class="fas fa-chart-bar"></i> Quick Stats</h3>
+                        <div class="stats-list" id="quickStats">
+                            <div class="stat-row">
+                                <span class="stat-label">New This Season</span>
+                                <span class="stat-value" id="statNewSeason">-</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Upcoming Anime</span>
+                                <span class="stat-value" id="statUpcoming">-</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Top Rated</span>
+                                <span class="stat-value" id="statTopCount">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Trending Topics -->
+                    <div class="sidebar-card glass">
+                        <h3><i class="fas fa-hashtag"></i> Trending Topics</h3>
+                        <div class="topics-list" id="topicsList">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                    
+                    <!-- Newsletter Signup -->
+                    <div class="sidebar-card glass newsletter-card">
+                        <h3><i class="fas fa-envelope"></i> Newsletter</h3>
+                        <p>Get the latest anime news delivered to your inbox!</p>
+                        <form class="newsletter-form" id="newsletterForm">
+                            <input type="email" class="form-input" placeholder="Your email" required>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <i class="fas fa-paper-plane"></i> Subscribe
+                            </button>
+                        </form>
+                        <p class="newsletter-note">Coming soon with Supabase</p>
+                    </div>
+                </aside>
             </div>
-
-        </section>
-
-    </main>
-
-    <!-- ===== PAGINATION ===== -->
-
-    <section class="pagination">
-
-        <button id="previous-news-page">
-            Previous
-        </button>
-
-        <span id="news-page-number">
-            1
-        </span>
-
-        <button id="next-news-page">
-            Next
-        </button>
-
+        </div>
     </section>
 
-    <!-- ===== FOOTER ===== -->
-
-    <footer>
-
-        <div class="container">
-
-            <h2>AnimeVerse</h2>
-
-            <p>
-                Your daily source for anime news and updates.
-            </p>
-
-            <p>
-                © 2026 AnimeVerse. All Rights Reserved.
-            </p>
-
+    <!-- Article Modal -->
+    <div class="modal-overlay" id="articleModal" style="display: none;">
+        <div class="modal-content glass" id="articleModalContent">
+            <button class="modal-close" id="articleModalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-body" id="articleModalBody">
+                <!-- Article content loaded dynamically -->
+            </div>
         </div>
+    </div>
 
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="text-gradient">AnimeVerse</h3>
+                    <p>Your ultimate destination for anime discovery and tracking.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Reddit"><i class="fab fa-reddit"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <a href="explore.html">Browse Anime</a>
+                    <a href="explore.html?sort=trending">Trending</a>
+                    <a href="explore.html?sort=rating">Top Rated</a>
+                    <a href="explore.html?status=airing">Currently Airing</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Community</h4>
+                    <a href="characters.html">Characters</a>
+                    <a href="news.html">News</a>
+                    <a href="wallpapers.html">Wallpapers</a>
+                    <a href="#">Discord</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Account</h4>
+                    <a href="login.html">Login</a>
+                    <a href="register.html">Register</a>
+                    <a href="profile.html">Profile</a>
+                    <a href="#">Settings</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AnimeVerse. Powered by Jikan API. Made with ❤️ for anime fans.</p>
+            </div>
+        </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="js/app.js"></script>
-
+    <script src="js/news.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/theme.js"></script>
 </body>
 </html>
